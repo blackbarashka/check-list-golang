@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package api;
+option go_package = "chek-list/api";
+import "google/protobuf/timestamp.proto";
+
+service TaskService {
+  rpc CreateTask (CreateTaskRequest) returns (CreateTaskResponse);
+  rpc GetTasks (GetTaskRequest) returns (GetTaskResponse);
+  rpc GetTaskByID (GetTaskByIDRequest) returns (GetTaskByIDResponse);
+  rpc MarkTaskDone (MarkTaskDoneRequest) returns (MarkTaskDoneResponse);
+  rpc DeleteTask (DeleteTaskRequest) returns (DeleteTaskResponse);
+}
+
+message Task {
+  int64 id = 1;
+  string title = 2;
+  string description = 3;
+  bool status = 4;
+  google.protobuf.Timestamp add_time = 5;
+  google.protobuf.Timestamp completed_time = 6;
+}
+
+message GetTaskByIDRequest {
+  int64 id = 1;
+}
+message GetTaskByIDResponse {
+  Task task = 1;
+}
+message CreateTaskRequest {
+  string title = 1;
+  string description = 2;
+
+}
+message CreateTaskResponse {
+  Task task = 1;
+
+}
+message GetTaskRequest{
+}
+message GetTaskResponse{
+  repeated Task tasksList =1;
+}
+message MarkTaskDoneRequest{
+  int64 id = 1;
+}
+message MarkTaskDoneResponse{
+  Task task =1 ;
+}
+message DeleteTaskRequest{
+  int64 id = 1;
+}
+message DeleteTaskResponse{
+
+}
